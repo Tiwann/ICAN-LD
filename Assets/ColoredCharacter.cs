@@ -9,20 +9,19 @@ public class ColoredCharacter : MonoBehaviour
 
     public void OnValidate()
     {
-        SpriteRenderer renderer = GetComponent<SpriteRenderer>();
-        if (renderer && WorldParameters.Instance)
-            renderer.color = WorldParameters.Instance.GetColor(color);
+        SpriteRenderer srenderer = GetComponent<SpriteRenderer>();
+        if (srenderer && WorldParameters.Instance)
+            srenderer.color = WorldParameters.Instance.GetColor(color);
 
+        #if UNITY_EDITOR
         EditorApplication.delayCall += () =>
         {
-            if (this != null)
-                gameObject.layer = WorldParameters.Instance.GetColorCharacterMask(color);
+            gameObject.layer = WorldParameters.Instance.GetColorCharacterMask(color);
 
-			CharacterController2D controller = GetComponent<CharacterController2D>();
-			if (controller)
-				controller.groundCheck.gameObject.layer = WorldParameters.Instance.GetColorCharacterGroundMask(color);
-		};
-
-       
+            CharacterController2D controller = GetComponent<CharacterController2D>();
+            if (controller)
+                controller.groundCheck.gameObject.layer = WorldParameters.Instance.GetColorCharacterGroundMask(color);
+        };
+        #endif
     }
 }
