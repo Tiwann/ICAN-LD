@@ -17,12 +17,14 @@ public class ColoredCharacter : MonoBehaviour
         EditorApplication.delayCall += () =>
         {
             if (this != null)
+            {
                 gameObject.layer = WorldParameters.Instance.GetColorCharacterMask(color);
 
-			CharacterController2D controller = GetComponent<CharacterController2D>();
-			if (controller)
-				controller.groundCheck.gameObject.layer = WorldParameters.Instance.GetColorCharacterGroundMask(color);
-		};
+                CharacterController2D controller = GetComponent<CharacterController2D>();
+                if (controller)
+                    controller.groundCheck.gameObject.layer = WorldParameters.Instance.GetColorCharacterGroundMask(color);
+            }
+        };
         #endif
     }
 }
